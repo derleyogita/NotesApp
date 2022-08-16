@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_gray"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rlTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:padding="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tvBlackTextMediumExtraSemiBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/str_title_new_reminder" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_close" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_below="@+id/rlTitle"
+                    android:background="@color/black" />
+
+                <RelativeLayout
+                    android:id="@+id/rlDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/divider"
+                    android:padding="@dimen/_18sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvLblReminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_reminder_name"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etReminderName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvLblReminder"
+                        android:hint="@string/str_please_enter_reminder_name"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="30" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvLblReminderDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etReminderName"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:text="@string/str_lbl_reminder_description"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etReminderDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvLblReminderDescription"
+                        android:layout_marginTop="2dp"
+                        android:hint="@string/str_please_enter_reminder_description"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLength="150" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvLblDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etReminderDescription"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:text="@string/str_please_select_date_and_time"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvLblDateTime"
+                        android:layout_marginTop="2dp"
+                        android:editable="false"
+                        android:hint="@string/str_date_and_time"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlDetails"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp">
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        style="@style/roundedButton"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:text="@string/btn_save" />
+
+                    <Button
+                        android:id="@+id/btnReset"
+                        style="@style/roundedButton"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/btn_reset"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

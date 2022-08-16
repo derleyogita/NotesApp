@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="AddNotesResponseModel"
+            type="com.example.notes.database.AddNotesResponseModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/bg_notes_adapter"
+        android:padding="@dimen/_8sdp">
+
+        <LinearLayout
+            android:id="@+id/llNoteIcon"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_regular_grey_circle"
+            android:orientation="vertical"
+            tools:ignore="TooDeepLayout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNoteTitleInitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:text="R" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/NoteDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toEndOf="@+id/llNoteIcon"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNoteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_lbl_reminder_1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNoteDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNoteTitle"
+                android:text="@string/str_test_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/color_dark_grey"
+                android:textSize="@dimen/_11sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNoteDetails"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/color_dark_grey"
+                android:textSize="@dimen/_11sdp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

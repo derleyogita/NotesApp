@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/bg_notes_adapter.xml" value="0.1" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/bg_regular_grey_circle.xml" value="0.1425" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/btn_red_background.xml" value="0.144" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/btn_text_color_selector_rounded_red.xml" value="0.144" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/ic_close.xml" value="0.1425" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/ic_search.xml" value="0.1425" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/splash_icon.xml" value="0.1345" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/wrapper_ic_close.xml" value="0.1425" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/wrapper_ic_search.xml" value="0.1425" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/activity_home.xml" value="0.13240740740740742" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/activity_splash.xml" value="0.1796875" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/adapter_notes.xml" value="0.22" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/common_message_dialog.xml" value="0.1796875" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/dialog_new_reminder.xml" value="0.16666666666666666" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.17864583333333334" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/fragment_login.xml" value="0.16666666666666666" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/layout/toolbar_common.xml" value="0.1796875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

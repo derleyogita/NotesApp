@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_gray"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMessageDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/_16sdp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMessageDialogMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12sdp"
+        android:maxLines="2"
+        android:layout_marginTop="@dimen/_14sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btMessageDialogPositive"
+            style="@style/roundedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</LinearLayout>
