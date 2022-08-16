@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/bg_notes_adapter.xml" value="0.1" />
+        <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/bg_red_rounded_border.xml" value="0.15" />
         <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/bg_regular_grey_circle.xml" value="0.1425" />
         <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/btn_red_background.xml" value="0.144" />
         <entry key="..\:/Projects/NotesApp/app/src/main/res/drawable/btn_text_color_selector_rounded_red.xml" value="0.144" />
