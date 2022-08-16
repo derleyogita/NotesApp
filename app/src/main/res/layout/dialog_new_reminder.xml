@@ -118,6 +118,13 @@
                         android:hint="@string/str_date_and_time"
                         android:imeOptions="actionDone"
                         android:importantForAutofill="no" />
+
+                    <Button
+                        android:id="@+id/btnSelectImage"
+                        style="@style/rectangleButton"
+                        android:layout_below="@id/etDateTime"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:text="@string/str_select_image" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -139,7 +146,7 @@
                         style="@style/roundedButton"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/btn_reset"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

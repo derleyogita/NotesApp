@@ -1,13 +1,14 @@
 package com.example.notes;
 
-import static com.example.notes.enums.IExtraArgs.ARG_NAVIGATE_TO_DASHBOARD_FRAGMENT;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +19,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.notes.constants.IConstants;
 import com.example.notes.database.AddNotesResponseModel;
 import com.example.notes.databinding.DialogNewReminderBinding;
-import com.example.notes.enums.IExtraArgs;
+import com.example.notes.helper.ImageHelper;
 import com.example.notes.helper.PopupDialogView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 
 /**
  * @author yogitad
@@ -40,6 +44,11 @@ import io.realm.RealmList;
  **/
 
 public class AddNoteDialogFragment extends DialogFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    /**
+     * camera intent request code
+     */
+    private static final int REQUEST_CAMERA = 100;
 
     /**
      * bind layout
@@ -70,6 +79,17 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     private int selectedYear;
     private int selectedMonth;
     private int selectedDay;
+
+    /**
+     * image selection dialog options array
+     */
+    private final CharSequence[] imageSelectionOptions = {IConstants.OPEN_CAMERA, IConstants.OPEN_GALLERY, IConstants.CANCEL_TASK};
+
+    /**
+     * Image file from u click via camera
+     */
+    private File imageFile;
+
 
     public AddNoteDialogFragment() {
     }
@@ -111,6 +131,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
         binding.btnSave.setOnClickListener(this);
         binding.btnReset.setOnClickListener(this);
         binding.etDateTime.setOnClickListener(this);
+        binding.btnSelectImage.setOnClickListener(this);
     }
 
     /**
@@ -160,6 +181,8 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             //todo No need of reset button as in realm we have insertOrUpdate method which handles insertion n updation based on primary key
         } else if (view.getId() == R.id.etDateTime) {
             showDatePicker();
+        }else if(view.getId()== R.id.btnSelectImage){
+            Toast.makeText(context, getString(R.string.str_coming_soon), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -188,6 +211,31 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             });
         }, error -> Toast.makeText(context, getString(R.string.str_something_went_wrong), Toast.LENGTH_SHORT).show());
         realm.commitTransaction();
+    }
+
+    /**
+     * Intent to open camera to take picture
+     */
+    private void cameraIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            try {
+                imageFile = ImageHelper.getInstance().createImageFile(context);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (imageFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(context,
+                        "com.example.notes.fileprovider",
+                        imageFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+            }
+        }
     }
 
     @Override

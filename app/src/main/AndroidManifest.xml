@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.notes">
 
+    <!--Permission used to read external storage files-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--Permission used to write in external storage-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--Permission allow us to use camera feature-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
