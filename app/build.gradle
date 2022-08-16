@@ -29,6 +29,14 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def date = new Date()
+            def formattedDate = date.format('ddMMMyyyy')
+            outputFileName = "Notes_${variant.versionName}_${formattedDate}.apk"
+        }
+    }
 }
 
 dependencies {

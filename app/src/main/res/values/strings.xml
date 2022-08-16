@@ -23,10 +23,10 @@
     <string name="str_please_enter_reminder_description">Description</string>
     <string name="str_invalid_credentials">Invalid Credentials</string>
     <string name="str_db_name">Notes.realm</string>
-    <string name="str_reminder_Set">Reminder Set Successfully</string>
+    <string name="str_reminder_Set">Reminder set successfully..!</string>
     <string name="str_something_went_wrong">Something went wrong</string>
     <string name="str_reminder_updated">Reminder updated successfully..!</string>
-    <string name="str_ok">Ok</string>
+    <string name="str_ok">OK</string>
     <string name="str_test_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry</string>
     <string name="test_lbl_reminder_1">Reminder 1</string>
     <string name="str_enter_details">Please enter details</string>
