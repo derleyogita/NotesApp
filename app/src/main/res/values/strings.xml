@@ -31,7 +31,8 @@
     <string name="test_lbl_reminder_1">Reminder 1</string>
     <string name="str_enter_details">Please enter details</string>
     <string name="str_date_and_time">Date and Time</string>
-    <string name="str_select_image">Select Image</string>
+    <string name="str_select_image">Capture Image</string>
     <string name="str_choose_image">Choose Image</string>
     <string name="str_coming_soon">Coming soon..!</string>
+    <string name="str_access_denied">Access Denied</string>
 </resources>

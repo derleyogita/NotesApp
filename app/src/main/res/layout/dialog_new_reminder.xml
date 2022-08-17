@@ -119,12 +119,29 @@
                         android:imeOptions="actionDone"
                         android:importantForAutofill="no" />
 
-                    <Button
-                        android:id="@+id/btnSelectImage"
-                        style="@style/rectangleButton"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/etDateTime"
-                        android:layout_marginTop="@dimen/_18sdp"
-                        android:text="@string/str_select_image" />
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btnSelectImage"
+                            style="@style/rectangleButton"
+                            android:layout_marginTop="@dimen/_18sdp"
+                            android:text="@string/str_select_image" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivEvidenceImage"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_toEndOf="@id/btnSelectImage"
+                            android:contentDescription="@string/app_name"
+                            android:maxHeight="@dimen/_160sdp"
+                            android:scaleType="fitXY" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <LinearLayout

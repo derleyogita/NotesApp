@@ -9,10 +9,6 @@ package com.example.notes.constants;
 public class IPermissions {
 
     /**
-     * Read external storage constant
-     */
-    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
-    /**
      * Camera constant
      */
     public static final int CAMERA = 2;

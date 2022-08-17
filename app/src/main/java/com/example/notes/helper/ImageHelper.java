@@ -1,15 +1,28 @@
 package com.example.notes.helper;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.OpenableColumns;
+import android.util.Base64;
+
+import androidx.core.content.FileProvider;
 
 import com.example.notes.constants.IConstants;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author yogitad
@@ -54,5 +67,12 @@ public class ImageHelper{
         currentPhotoPath = imageFile.getAbsolutePath();
         return imageFile;
     }
-
+    /**
+     * method to get uri from file
+     * @param context fragment context
+     * @param imageFile - file name
+     */
+    public Uri getUriFromFile(Context context, File imageFile) {
+        return FileProvider.getUriForFile(context, "com.example.notes.fileprovider", imageFile);
+    }
 }

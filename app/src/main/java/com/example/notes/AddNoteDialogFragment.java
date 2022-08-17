@@ -4,13 +4,17 @@ import static com.example.notes.constants.IPermissions.CAMERA;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -83,12 +87,17 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     /**
      * image selection dialog options array
      */
-    private final CharSequence[] imageSelectionOptions = {IConstants.OPEN_CAMERA, IConstants.OPEN_GALLERY, IConstants.CANCEL_TASK};
+    private final CharSequence[] imageSelectionOptions = {IConstants.OPEN_CAMERA};
 
     /**
      * Image file from u click via camera
      */
     private File imageFile;
+
+    /**
+     * Image file from u click via camera
+     */
+    private File tempImageFile;
 
 
     public AddNoteDialogFragment() {
@@ -182,7 +191,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             //todo No need of reset button as in realm we have insertOrUpdate method which handles insertion n updation based on primary key
         } else if (view.getId() == R.id.etDateTime) {
             showDatePicker();
-        }else if(view.getId()== R.id.btnSelectImage){
+        } else if (view.getId() == R.id.btnSelectImage) {
             //Toast.makeText(context, getString(R.string.str_coming_soon), Toast.LENGTH_SHORT).show();
             if (PermissionHelper.getInstance().checkPermission(AddNoteDialogFragment.this, Manifest.permission.CAMERA, CAMERA, AddNoteDialogFragment.this)) {
                 cameraIntent();
@@ -223,7 +232,6 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     private void cameraIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
             // Create the File where the photo should go
             try {
                 imageFile = ImageHelper.getInstance().createImageFile(context);
@@ -238,7 +246,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
                         imageFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_CAMERA);
-            }
+
         }
     }
 
@@ -270,6 +278,41 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     @Override
     public void isPermissionDenied(boolean isDenied) {
         //Handle permission deny flow
+    }
+
+    /**
+     * Handle runtime permission callback
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                new Handler(Looper.myLooper()).postDelayed(this::cameraIntent, 100);
+            } else {
+                Toast.makeText(context, R.string.str_access_denied, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**
+     * OnActivityResult Handle Image intent callback
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Uri imageUri;
+            if (requestCode == REQUEST_CAMERA) {
+                try {
+                    imageUri = ImageHelper.getInstance().getUriFromFile(context, imageFile);
+                    binding.ivEvidenceImage.setImageURI(Uri.parse(String.valueOf(imageUri)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
