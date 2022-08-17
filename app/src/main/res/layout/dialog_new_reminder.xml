@@ -97,7 +97,8 @@
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:maxLength="150" />
+                        android:maxLines="5"
+                        android:maxLength="100" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvLblDateTime"

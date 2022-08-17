@@ -147,6 +147,8 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             binding.etReminderName.setText(addNotesResponseModel.noteName);
             binding.etReminderDescription.setText(addNotesResponseModel.noteDescription);
             binding.etDateTime.setText(addNotesResponseModel.selectedDateTime);
+            if(!addNotesResponseModel.capturedImage.isEmpty())
+            binding.ivEvidenceImage.setImageURI(Uri.parse(addNotesResponseModel.capturedImage));
         }
     }
 

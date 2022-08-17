@@ -1,6 +1,7 @@
 package com.example.notes.adapter;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +81,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             binding.tvNoteTitle.setText(addNotesResponseModel.noteName);
             binding.tvNoteDetails.setText(addNotesResponseModel.noteDescription);
             binding.tvDateTime.setText(addNotesResponseModel.selectedDateTime);
+            binding.ivEvidenceImage.setImageURI(Uri.parse(addNotesResponseModel.capturedImage));
             //set click listener
             binding.rlNote.setOnClickListener(this);
         }
