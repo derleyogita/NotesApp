@@ -1,5 +1,8 @@
 package com.example.notes;
 
+import static com.example.notes.constants.IPermissions.CAMERA;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -27,7 +30,9 @@ import com.example.notes.constants.IConstants;
 import com.example.notes.database.AddNotesResponseModel;
 import com.example.notes.databinding.DialogNewReminderBinding;
 import com.example.notes.helper.ImageHelper;
+import com.example.notes.helper.PermissionHelper;
 import com.example.notes.helper.PopupDialogView;
+import com.example.notes.listener.PermissionListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +48,7 @@ import io.realm.Realm;
  * Fragment used to add new note and update note
  **/
 
-public class AddNoteDialogFragment extends DialogFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class AddNoteDialogFragment extends DialogFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, PermissionListener {
 
     /**
      * camera intent request code
@@ -63,11 +68,6 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
      * Assessment evidence List
      */
     private final List<AddNotesResponseModel> addNotesResponseModelList = new ArrayList<>();
-
-    /**
-     * Response model class
-     */
-    private AddNotesResponseModel addNotesResponseModel;
 
     /**
      * Realm DataBase
@@ -106,9 +106,10 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
         realm = Realm.getDefaultInstance();
         if (getArguments() != null) {
             //if not null means user clicked on not so now handle reset flow
-            addNotesResponseModel = getArguments().getParcelable("responseModel");
+            //Response model class
+            AddNotesResponseModel addNotesResponseModel = getArguments().getParcelable("responseModel");
             binding.btnSave.setText(getString(R.string.btn_reset));
-            setNoteDate(this.addNotesResponseModel);
+            setNoteDate(addNotesResponseModel);
         } else {
             binding.btnSave.setText(getString(R.string.btn_save));
         }
@@ -182,7 +183,10 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
         } else if (view.getId() == R.id.etDateTime) {
             showDatePicker();
         }else if(view.getId()== R.id.btnSelectImage){
-            Toast.makeText(context, getString(R.string.str_coming_soon), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, getString(R.string.str_coming_soon), Toast.LENGTH_SHORT).show();
+            if (PermissionHelper.getInstance().checkPermission(AddNoteDialogFragment.this, Manifest.permission.CAMERA, CAMERA, AddNoteDialogFragment.this)) {
+                cameraIntent();
+            }
         }
 
     }
@@ -261,6 +265,11 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
         //format yyyy-MM-dd 'T' HH:mm:ss
         binding.etDateTime.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay + " 'T' " + hourOfDay + ":" + minute);
+    }
+
+    @Override
+    public void isPermissionDenied(boolean isDenied) {
+        //Handle permission deny flow
     }
 
 
