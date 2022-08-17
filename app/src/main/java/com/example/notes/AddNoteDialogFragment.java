@@ -85,11 +85,6 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     private int selectedDay;
 
     /**
-     * image selection dialog options array
-     */
-    private final CharSequence[] imageSelectionOptions = {IConstants.OPEN_CAMERA};
-
-    /**
      * Image file from u click via camera
      */
     private File imageFile;
@@ -97,7 +92,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     /**
      * Image file from u click via camera
      */
-    private File tempImageFile;
+    private Uri imageUri;
 
 
     public AddNoteDialogFragment() {
@@ -178,6 +173,9 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
                 AddNotesResponseModel responseModel = new AddNotesResponseModel();
                 responseModel.setNoteName(binding.etReminderName.getText().toString());
                 responseModel.setNoteDescription(binding.etReminderDescription.getText().toString());
+                if(!String.valueOf(imageUri).isEmpty()){
+                    responseModel.setCapturedImage(String.valueOf(imageUri));
+                }
                 //date time is optional
                 responseModel.setSelectedDateTime(binding.etDateTime.getText().toString());
                 //add in list
@@ -232,20 +230,20 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     private void cameraIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-            // Create the File where the photo should go
-            try {
-                imageFile = ImageHelper.getInstance().createImageFile(context);
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-            }
-            // Continue only if the File was successfully created
-            if (imageFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(context,
-                        "com.example.notes.fileprovider",
-                        imageFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+        // Create the File where the photo should go
+        try {
+            imageFile = ImageHelper.getInstance().createImageFile(context);
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            ex.printStackTrace();
+        }
+        // Continue only if the File was successfully created
+        if (imageFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(context,
+                    "com.example.notes.fileprovider",
+                    imageFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_CAMERA);
 
         }
     }
@@ -303,7 +301,6 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            Uri imageUri;
             if (requestCode == REQUEST_CAMERA) {
                 try {
                     imageUri = ImageHelper.getInstance().getUriFromFile(context, imageFile);

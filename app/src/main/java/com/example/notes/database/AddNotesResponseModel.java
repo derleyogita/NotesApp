@@ -28,6 +28,7 @@ public class AddNotesResponseModel extends RealmObject implements Parcelable {
     public String noteName;
     public String noteDescription;
     public String selectedDateTime;
+    public String capturedImage;
 
     public String getNoteName() {
         return noteName;
@@ -49,6 +50,14 @@ public class AddNotesResponseModel extends RealmObject implements Parcelable {
         this.selectedDateTime = selectedDateTime;
     }
 
+    public void setCapturedImage(String capturedImage) {
+        this.capturedImage = capturedImage;
+    }
+
+    public String getCapturedImage() {
+        return capturedImage;
+    }
+
     public String getSelectedDateTime() {
         return selectedDateTime;
     }
@@ -60,12 +69,14 @@ public class AddNotesResponseModel extends RealmObject implements Parcelable {
         noteName = in.readString();
         noteDescription = in.readString();
         selectedDateTime = in.readString();
+        capturedImage = in.readString();
     }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(noteName);
         dest.writeString(noteDescription);
         dest.writeString(selectedDateTime);
+        dest.writeString(capturedImage);
     }
 
     public int describeContents() {
