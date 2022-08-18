@@ -35,4 +35,5 @@
     <string name="str_choose_image">Choose Image</string>
     <string name="str_coming_soon">Coming soon..!</string>
     <string name="str_access_denied">Access Denied</string>
+    <string name="str_permission_denied">Permission denied by user, Go to settings and allow permission to use this camera.</string>
 </resources>

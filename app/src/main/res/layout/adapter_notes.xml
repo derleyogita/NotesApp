@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -47,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toStartOf="@id/rlImage"
             android:layout_toEndOf="@+id/llNoteIcon"
             android:orientation="vertical">
 
@@ -77,15 +77,14 @@
                 android:textSize="@dimen/_11sdp" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rlImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/NoteDetails"
-             android:gravity="center"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_alignParentEnd="true"
+            android:gravity="end"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -96,6 +95,6 @@
                 android:contentDescription="@string/app_name"
                 android:maxHeight="@dimen/_100sdp"
                 android:scaleType="fitXY" />
-        </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 </layout>

@@ -30,7 +30,6 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.notes.constants.IConstants;
 import com.example.notes.database.AddNotesResponseModel;
 import com.example.notes.databinding.DialogNewReminderBinding;
 import com.example.notes.helper.ImageHelper;
@@ -137,6 +136,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
         binding.btnReset.setOnClickListener(this);
         binding.etDateTime.setOnClickListener(this);
         binding.btnSelectImage.setOnClickListener(this);
+        binding.ivEvidenceRemove.setOnClickListener(this);
     }
 
     /**
@@ -147,8 +147,13 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             binding.etReminderName.setText(addNotesResponseModel.noteName);
             binding.etReminderDescription.setText(addNotesResponseModel.noteDescription);
             binding.etDateTime.setText(addNotesResponseModel.selectedDateTime);
-            if(!addNotesResponseModel.capturedImage.isEmpty())
-            binding.ivEvidenceImage.setImageURI(Uri.parse(addNotesResponseModel.capturedImage));
+            if (!addNotesResponseModel.capturedImage.equals("null")) {
+                binding.rlImageView.setVisibility(View.VISIBLE);
+                imageUri = Uri.parse(addNotesResponseModel.capturedImage);
+                binding.ivEvidenceImage.setImageURI(imageUri);
+            } else {
+                binding.rlImageView.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -170,12 +175,14 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             //dismiss/close dialog
             dismiss();
         } else if (view.getId() == R.id.btnSave) {
+            //todo Note: No need of reset button as in realm we have insertOrUpdate method which handles insertion n updation based on primary key
+
             if (!binding.etReminderName.getText().toString().isEmpty() && !binding.etReminderDescription.getText().toString().isEmpty()) {
                 //handle button save
                 AddNotesResponseModel responseModel = new AddNotesResponseModel();
                 responseModel.setNoteName(binding.etReminderName.getText().toString());
                 responseModel.setNoteDescription(binding.etReminderDescription.getText().toString());
-                if(!String.valueOf(imageUri).isEmpty()){
+                if (!String.valueOf(imageUri).isEmpty()) {
                     responseModel.setCapturedImage(String.valueOf(imageUri));
                 }
                 //date time is optional
@@ -186,9 +193,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             } else {
                 Toast.makeText(context, R.string.str_enter_details, Toast.LENGTH_SHORT).show();
             }
-        } else if (view.getId() == R.id.btnReset) {
             //handle button reset
-            //todo No need of reset button as in realm we have insertOrUpdate method which handles insertion n updation based on primary key
         } else if (view.getId() == R.id.etDateTime) {
             showDatePicker();
         } else if (view.getId() == R.id.btnSelectImage) {
@@ -196,6 +201,11 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             if (PermissionHelper.getInstance().checkPermission(AddNoteDialogFragment.this, Manifest.permission.CAMERA, CAMERA, AddNoteDialogFragment.this)) {
                 cameraIntent();
             }
+        } else if (view.getId() == R.id.ivEvidenceRemove) {
+            binding.rlImageView.setVisibility(View.GONE);
+            binding.ivEvidenceImage.setImageResource(0);
+            //for now keeping imageUri null but we to handle it correctly
+            imageUri = null;
         }
 
     }
@@ -272,12 +282,15 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
         //format yyyy-MM-dd 'T' HH:mm:ss
-        binding.etDateTime.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay + " 'T' " + hourOfDay + ":" + minute);
+        //binding.etDateTime.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay + " 'T' " + hourOfDay + ":" + minute);
+        binding.etDateTime.setText(selectedYear + "-" + selectedMonth + "-" + selectedDay);
+
     }
 
     @Override
     public void isPermissionDenied(boolean isDenied) {
-        //Handle permission deny flow
+        //Handle permission deny flow according to you
+        Toast.makeText(context, R.string.str_permission_denied, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -306,6 +319,7 @@ public class AddNoteDialogFragment extends DialogFragment implements View.OnClic
             if (requestCode == REQUEST_CAMERA) {
                 try {
                     imageUri = ImageHelper.getInstance().getUriFromFile(context, imageFile);
+                    binding.rlImageView.setVisibility(View.VISIBLE);
                     binding.ivEvidenceImage.setImageURI(Uri.parse(String.valueOf(imageUri)));
                 } catch (Exception e) {
                     e.printStackTrace();
